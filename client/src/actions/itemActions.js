@@ -10,18 +10,20 @@ axios.get('/api/items').then(res => dispatch({
 }))
 }
 
-export const deleteItem = (id) => {
-    return {
-        type: DELETE_ITEM,
-        payload: id
-    }
+export const deleteItem = (id) => dispatch => {
+  axios.delete(`/api/items/${id}`).then(res => dispatch({
+    type: DELETE_ITEM,
+    payload: id
+  }))
+  
+
 }
 
-export const addItem = (newItem) => {
-    return {
-        type: ADD_ITEMS,
-        payload: newItem
-    }
+export const addItem = (newItem) => dispatch => {
+axios.post('/api/items', newItem).then(res => dispatch({
+    type: ADD_ITEMS,
+    payload: res.data
+}))
 }
 
 export const setItemsLoading = () => {
